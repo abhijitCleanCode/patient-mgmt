@@ -1,0 +1,23 @@
+// defining grpc service for billing service
+
+syntax = "proto3";
+
+option java_multiple_files = true; // for code splitting
+option java_package = "billings";
+
+service BillingService {
+  // patient service is going to call the billing service and pass billing req to create billing account method
+  rpc CreateBillingAccount (BillingRequest) returns (BillingResponse);
+}
+
+// define how a billing request will looks like
+message BillingRequest {
+  string patientId = 1; // use by gRPC and proto buff to help in serialization and deserialization
+  string name = 2;
+  string email = 3;
+}
+
+message BillingResponse {
+  string accountId = 1;
+  string status = 2;
+}
